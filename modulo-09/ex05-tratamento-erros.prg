@@ -1,5 +1,3 @@
-#include "protheus.ch"
-
 FUNCTION Main()
 
     LOCAL nA := 10
