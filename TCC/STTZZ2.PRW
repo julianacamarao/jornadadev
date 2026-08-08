@@ -1,15 +1,14 @@
 #Include "Protheus.ch"
 
 /*
-    STTZZ2.PRW
-
-    TCC - Sistema de Controle de Nao Conformidades
-    de Fornecedores - ISO 9001
-
-    Rotina de manutencao e consulta das ocorrencias
-    registradas na tabela ZZ2.
+--------------------------------------------------------------------
+Programa : STTZZ2.PRW
+Projeto  : TCC - Sistema de Controle de Nao Conformidades
+Autora   : Juliana de Almeida Camarão
+Objetivo : Manutencao e consulta das ocorrencias da tabela ZZ2
+Data     : 2026
+--------------------------------------------------------------------
 */
-
 
 USER FUNCTION STTZZ2()
 
@@ -25,12 +24,9 @@ USER FUNCTION STTZZ2()
             Legendas:
             Vermelho = possui nao conformidade
             Verde    = sem nao conformidade
-
-            A comparacao completa com a tolerancia da ZZ1
-            pode ser evoluida utilizando PercNaoConforme().
         */
 
-        aAdd(aColors, { "ZZ2->ZZ2_QTDNOK > 0", "BR_VERMELHO" })
+        aAdd(aColors, { "ZZ2->ZZ2_QTDNOK > 0",  "BR_VERMELHO" })
         aAdd(aColors, { "ZZ2->ZZ2_QTDNOK == 0", "BR_VERDE" })
 
         mBrowse( ;
@@ -52,7 +48,7 @@ USER FUNCTION STTZZ2()
         MsgStop( ;
             "Nao foi possivel abrir as ocorrencias de fornecedores." + ;
             Chr(13) + Chr(10) + ;
-            "Verifique os dados e tente novamente.", ;
+            "Verifique os dados informados e tente novamente.", ;
             "TCC - ISO 9001" ;
         )
 
@@ -64,9 +60,13 @@ RETURN NIL
 
 
 /*
-    Abre a ZZ2 exibindo apenas as ocorrencias
-    relacionadas ao codigo da ZZ1 informado.
+--------------------------------------------------------------------
+Funcao   : STTZZ2FLT
+Objetivo : Exibir somente as ocorrencias relacionadas ao codigo
+           de controle da ZZ1 informado.
+--------------------------------------------------------------------
 */
+
 USER FUNCTION STTZZ2FLT(cCodigoZZ1)
 
     LOCAL oErro
@@ -74,25 +74,25 @@ USER FUNCTION STTZZ2FLT(cCodigoZZ1)
     LOCAL aIndexZZ2 := {}
     LOCAL cFiltro   := ""
 
+    IF Empty(cCodigoZZ1)
+
+        MsgStop( ;
+            "Codigo do controle de fornecimento nao informado.", ;
+            "TCC - ISO 9001" ;
+        )
+
+        RETURN NIL
+
+    ENDIF
+
     BEGIN SEQUENCE
-
-        IF Empty(cCodigoZZ1)
-
-            MsgStop( ;
-                "Codigo do controle de fornecimento nao informado.", ;
-                "TCC - ISO 9001" ;
-            )
-
-            BREAK
-
-        ENDIF
 
         dbSelectArea("ZZ2")
         dbSetOrder(1)
 
         cFiltro := 'ZZ2_CONFOR == "' + cCodigoZZ1 + '"'
 
-        aAdd(aColors, { "ZZ2->ZZ2_QTDNOK > 0", "BR_VERMELHO" })
+        aAdd(aColors, { "ZZ2->ZZ2_QTDNOK > 0",  "BR_VERMELHO" })
         aAdd(aColors, { "ZZ2->ZZ2_QTDNOK == 0", "BR_VERDE" })
 
         FilBrowse("ZZ2", @aIndexZZ2, @cFiltro)

@@ -1,9 +1,13 @@
-/*
-    STTZZLIB.PRW
-    Biblioteca de funcoes comuns do TCC
+#Include "Protheus.ch"
 
-    Sistema de Controle de Nao Conformidades
-    de Fornecedores - ISO 9001
+/*
+--------------------------------------------------------------------
+Programa : STTZZLIB.PRW
+Projeto  : TCC - Sistema de Controle de Nao Conformidades
+Autora   : Juliana de Almeida Camarão
+Objetivo : Biblioteca de funcoes comuns utilizadas pelo TCC
+Data     : 2026
+--------------------------------------------------------------------
 */
 
 
@@ -57,7 +61,7 @@ RETURN cDescricao
 */
 FUNCTION PercNaoConforme(nOk, nNok)
 
-    LOCAL nTotal := nOk + nNok
+    LOCAL nTotal      := nOk + nNok
     LOCAL nPercentual := 0
 
     IF nTotal > 0
@@ -76,8 +80,10 @@ FUNCTION CertificadoVencendo(dValCer)
     LOCAL lVencendo := .F.
 
     IF !Empty(dValCer)
+
         lVencendo := dValCer >= dDataBase .AND. ;
                      dValCer <= dDataBase + 30
+
     ENDIF
 
 RETURN lVencendo
