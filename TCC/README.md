@@ -189,6 +189,28 @@ Foram gerados:
 
 ---
 
+# Instalação do Dicionário de Dados
+
+Os arquivos necessários para representar o Dicionário de Dados e as tabelas customizadas do projeto estão disponíveis na pasta `Dados-e-Dicionario`.
+
+Para utilização no ambiente TOTVS Protheus, devem ser considerados os arquivos DBF correspondentes ao Dicionário de Dados e às tabelas desenvolvidas:
+
+- `sx2990.dbf` — definição das tabelas;
+- `sx3990.dbf` — definição dos campos;
+- `six990.dbf` — definição dos índices;
+- `sx7990.dbf` — configuração dos gatilhos;
+- `sxb990.dbf` — consultas padrão (F3);
+- `zz1990.dbf` — tabela física ZZ1;
+- `zz2990.dbf` — tabela física ZZ2.
+
+Os arquivos devem ser utilizados em um ambiente Protheus compatível, preservando previamente os arquivos originais do ambiente por meio de backup.
+
+Após a disponibilização do Dicionário de Dados no ambiente, os fontes presentes na pasta `fontes` devem ser compilados no ambiente ADVPL para disponibilização das rotinas `STTZZ1` e `STTZZ2`.
+
+Os arquivos CSV disponibilizados juntamente com os DBFs funcionam como representação textual das estruturas utilizadas no projeto e permitem sua leitura durante o processo de validação automatizada do TCC.
+
+---
+
 # Tabela ZZ1 — Controle de Fornecimento
 
 A tabela **ZZ1** foi criada para armazenar as informações principais do controle de fornecimento.
@@ -338,6 +360,19 @@ Entre as funções implementadas estão:
 - cálculo do percentual de itens não conformes;
 - identificação de certificados próximos ao vencimento;
 - registro de informações técnicas de erro.
+
+---
+
+# Menu no SIGACOM
+
+As rotinas desenvolvidas para o projeto foram estruturadas para serem disponibilizadas no menu do SIGACOM.
+
+As entradas de menu correspondem às seguintes funções:
+
+- `STTZZ1` — Controle de Fornecimento, responsável pela manutenção dos registros da tabela ZZ1.
+- `STTZZ2` — Ocorrências de Fornecimento, responsável pela consulta e manutenção dos registros da tabela ZZ2.
+
+As rotinas podem ser associadas às respectivas opções do menu do SIGACOM após a compilação dos fontes ADVPL no ambiente Protheus.
 
 ---
 
